@@ -1,5 +1,7 @@
 require 'bikes'
 
 describe Bike do
-  it {is_expected.to respond_to :working?}
+  describe '#working?' do
+    it {is_expected.to respond_to :working?}
+  end
 end

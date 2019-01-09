@@ -1,7 +1,6 @@
 require_relative 'bikes'
 
 class DockingStation
-
   attr_reader :bikes
 
   def initialize
@@ -27,5 +26,4 @@ class DockingStation
   def empty?
     @bikes.empty?
   end
-
 end

@@ -8,7 +8,7 @@ describe DockingStation do
   describe '#release_bike' do
     it { is_expected.to respond_to :release_bike }
 
-    it 'should return the bike that is already docked when we release bike' do
+    it 'should not include the bike in the bikes array when released' do
       bike = Bike.new
       subject.dock(bike)
       subject.release_bike
@@ -22,20 +22,20 @@ describe DockingStation do
 
   describe '#working?' do
     it "releases working bikes" do
-      bike = Bike.new
-      expect(bike).to be_working
+      expect(Bike.new).to be_working
     end
   end
 
   describe '#dock' do
     it { is_expected.to respond_to(:dock).with(1).argument }
 
-    it "adds a new bike to the docking_station" do
-      bike1 = Bike.new
-      expect(subject.dock(bike1)).to include(bike1)
+    it "adds a new bike to the docking station" do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.bikes).to include(bike)
     end
 
-    it "should raise and error if the docking station is full" do
+    it "should raise an error if the docking station is full" do
       20.times {subject.dock(Bike.new)}
       expect {subject.dock Bike.new}.to raise_error 'DockFullError'
     end
