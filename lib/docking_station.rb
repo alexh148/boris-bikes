@@ -9,13 +9,23 @@ class DockingStation
   end
 
   def release_bike
-    raise 'EmptyDockError' if @bikes.empty?
+    raise 'EmptyDockError' if empty?
     @bikes.pop
   end
 
   def dock(bike)
-    raise 'DockFullError' if @bikes.count >= 20
+    raise 'DockFullError' if full?
     @bikes << bike
+  end
+
+  private
+
+  def full?
+    @bikes.count >= 20
+  end
+
+  def empty?
+    @bikes.empty?
   end
 
 end
