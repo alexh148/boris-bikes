@@ -2,20 +2,19 @@ require_relative 'bikes'
 
 class DockingStation
 
-def initialize
-  @bike = "Dock is empty"
-end
+  attr_reader :bike
 
-attr_reader :bike
+  def initialize
+    @bike = nil
+  end
 
   def release_bike
-    Bikes.new
+    raise 'EmptyDockError' unless @bike
+    @bike
   end
 
-  def dock(bike_to_be_added)
-    @bike = bike_to_be_added
+  def dock(bike)
+    @bike = bike
   end
 
 end
-
-#DockingStation.dock(newbike)
