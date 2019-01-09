@@ -14,6 +14,7 @@ class DockingStation
   end
 
   def dock(bike)
+    raise 'DockFullError' if @bike
     @bike = bike
   end
 
