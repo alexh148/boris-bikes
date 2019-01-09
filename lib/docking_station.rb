@@ -2,20 +2,20 @@ require_relative 'bikes'
 
 class DockingStation
 
-  attr_reader :bike
+  attr_reader :bikes
 
   def initialize
-    @bike = nil
+    @bikes = []
   end
 
   def release_bike
-    raise 'EmptyDockError' unless @bike
-    @bike
+    raise 'EmptyDockError' if @bikes.empty?
+    @bikes.pop
   end
 
   def dock(bike)
-    raise 'DockFullError' if @bike
-    @bike = bike
+    raise 'DockFullError' if @bikes.count >= 20
+    @bikes << bike
   end
 
 end
