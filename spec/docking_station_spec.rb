@@ -20,10 +20,6 @@ describe DockingStation do
     it { is_expected.to respond_to :bikes }
   end
 
-
-
-
-
   describe '#release_bike' do
     it { is_expected.to respond_to :release_bike }
 
@@ -56,7 +52,6 @@ describe DockingStation do
       subject.capacity.times {subject.dock(@bike)}
       expect {subject.dock(@bike)}.to raise_error 'DockFullError'
     end
-
 
   end
 

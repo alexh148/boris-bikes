@@ -11,8 +11,8 @@ describe Bike do
   end
 
   it "asks user for input, sets working variable of bike to false if user enters no" do
-    allow(@bike).to receive(:gets).and_return ("No")
-    @bike.working?
+    allow($stdin).to receive(:gets).and_return ('No')
+    @bike.ask_user = $stdin.gets
     expect(@bike.working).to eq false
   end
 

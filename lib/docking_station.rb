@@ -14,6 +14,7 @@ class DockingStation
   end
 
   def dock(bike)
+    bike.ask_user
     full? ? (raise 'DockFullError') : @bikes << bike
   end
 

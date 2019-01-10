@@ -5,16 +5,14 @@ attr_reader :working
     @working = true
   end
 
-
   def working?
-    @working = false if ask_user == "No"
     @working
   end
 
-private
   def ask_user
-    puts "Is this bike broken?"
+    puts "Is this bike working?"
     input = gets.chomp
+    @working = false if input == "No"
   end
 
 end
