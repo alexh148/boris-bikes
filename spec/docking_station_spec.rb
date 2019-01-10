@@ -1,6 +1,12 @@
 require 'docking_station'
 
 describe DockingStation do
+
+  before(:each) do
+    @bike = Bike.new
+    @default_capacity = DockingStation::DEFAULT_CAPACITY
+  end
+
   describe '#bikes' do
     it { is_expected.to respond_to :bikes }
   end
@@ -9,10 +15,9 @@ describe DockingStation do
     it { is_expected.to respond_to :release_bike }
 
     it 'should not include the bike in the bikes array when released' do
-      bike = Bike.new
-      subject.dock(bike)
+      subject.dock(@bike)
       subject.release_bike
-      expect(subject.bikes).not_to include(bike)
+      expect(subject.bikes).not_to include(@bike)
     end
 
     it 'should raise error if the dock is empty' do
@@ -22,7 +27,7 @@ describe DockingStation do
 
   describe '#working?' do
     it "releases working bikes" do
-      expect(Bike.new).to be_working
+      expect(@bike).to be_working
     end
   end
 
@@ -30,14 +35,13 @@ describe DockingStation do
     it { is_expected.to respond_to(:dock).with(1).argument }
 
     it "adds a new bike to the docking station" do
-      bike = Bike.new
-      subject.dock(bike)
-      expect(subject.bikes).to include(bike)
+      subject.dock(@bike)
+      expect(subject.bikes).to include(@bike)
     end
 
     it "should raise an error if the docking station is full" do
-      20.times {subject.dock(Bike.new)}
-      expect {subject.dock Bike.new}.to raise_error 'DockFullError'
+      @default_capacity.times {subject.dock(@bike)}
+      expect {subject.dock(@bike)}.to raise_error 'DockFullError'
     end
   end
 
