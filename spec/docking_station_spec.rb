@@ -4,7 +4,16 @@ describe DockingStation do
 
   before(:each) do
     @bike = Bike.new
-    @default_capacity = DockingStation::DEFAULT_CAPACITY
+  end
+
+  describe '#initialize' do
+    it 'should initialize with a default capacity of 20' do
+      expect(subject.capacity).to eq 20
+    end
+    it 'should initialize with a custom capacity of 25' do
+      docking_station = DockingStation.new(25)
+      expect(docking_station.capacity).to eq 25
+    end
   end
 
   describe '#bikes' do
@@ -40,7 +49,7 @@ describe DockingStation do
     end
 
     it "should raise an error if the docking station is full" do
-      @default_capacity.times {subject.dock(@bike)}
+      subject.capacity.times {subject.dock(@bike)}
       expect {subject.dock(@bike)}.to raise_error 'DockFullError'
     end
   end
