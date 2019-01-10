@@ -10,11 +10,15 @@ class DockingStation
   end
 
   def release_bike
-    empty? ? (raise 'EmptyDockError') : @bikes.pop
+    useable_bikes = @bikes.select { |bike| bike.working? }
+    unuseable_bikes = @bikes.select { |bike| !bike.working? }
+    useable_bikes.empty? ? (raise 'No bikes available') : returned_bike = useable_bikes.pop
+    @bikes = useable_bikes + unuseable_bikes
+    returned_bike
+
   end
 
   def dock(bike)
-    bike.ask_user
     full? ? (raise 'DockFullError') : @bikes << bike
   end
 

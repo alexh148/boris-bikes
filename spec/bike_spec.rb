@@ -10,12 +10,17 @@ describe Bike do
     it {is_expected.to respond_to :working?}
   end
 
-  it "asks user for input, sets working variable of bike to false if user enters no" do
-    allow($stdin).to receive(:gets).and_return ('No')
-    @bike.ask_user = $stdin.gets
-    expect(@bike.working).to eq false
-  end
+  # it "asks user for input, sets working variable of bike to false if user enters no" do
+  #   allow($stdin).to receive(:gets).and_return ('No')
+  #   @bike.ask_user = $stdin.gets
+  #   expect(@bike.working).to eq false
+  # end
 
+
+  it "reports bike as broken, sets variable to false" do
+    @bike.report_broken
+    expect(@bike).not_to be_working
+  end
 
 
 end

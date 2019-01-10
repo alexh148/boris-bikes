@@ -30,9 +30,15 @@ describe DockingStation do
     end
 
     it 'should raise error if the dock is empty' do
-      expect { subject.release_bike }.to raise_error('EmptyDockError')
+      expect { subject.release_bike }.to raise_error('No bikes available')
     end
   end
+
+    it 'should not release a bike if it is not working' do
+      @bike.report_broken
+      subject.dock(@bike)
+      expect(subject.release_bike).to raise_error('No bikes available')
+    end
 
   describe '#working?' do
     it "releases working bikes" do
@@ -52,6 +58,7 @@ describe DockingStation do
       subject.capacity.times {subject.dock(@bike)}
       expect {subject.dock(@bike)}.to raise_error 'DockFullError'
     end
+
 
   end
 
