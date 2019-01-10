@@ -11,11 +11,7 @@ class DockingStation
 
   def release_bike
     useable_bikes = @bikes.select { |bike| bike.working? }
-    unuseable_bikes = @bikes.select { |bike| !bike.working? }
-    useable_bikes.empty? ? (raise 'No bikes available') : returned_bike = useable_bikes.pop
-    @bikes = useable_bikes + unuseable_bikes
-    returned_bike
-
+    useable_bikes.empty? ? (raise 'No bikes available') : @bikes.delete(useable_bikes.first)
   end
 
   def dock(bike)
