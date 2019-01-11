@@ -3,7 +3,7 @@ require 'docking_station'
 describe DockingStation do
 
   before(:each) do
-    @bike = Bike.new
+    @bike = double(:bike, working?: true)
   end
 
   describe '#initialize' do
@@ -23,6 +23,12 @@ describe DockingStation do
   describe '#release_bike' do
     it { is_expected.to respond_to :release_bike }
 
+    it 'should release a working bike' do
+      subject.dock(@bike)
+      bike = subject.release_bike
+      expect(bike).to be_working
+    end
+
     it 'should not include the bike in the bikes array when released' do
       subject.dock(@bike)
       subject.release_bike
@@ -35,16 +41,11 @@ describe DockingStation do
   end
 
     it 'should not release a bike if it is not working' do
-      @bike.report_broken
+      # Overwriting before each at the start
+      allow(@bike).to receive(:working?).and_return(false)
       subject.dock(@bike)
       expect { subject.release_bike }.to raise_error('No bikes available')
     end
-
-  describe '#working?' do
-    it "releases working bikes" do
-      expect(@bike).to be_working
-    end
-  end
 
   describe '#dock' do
     it { is_expected.to respond_to(:dock).with(1).argument }
